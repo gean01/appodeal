@@ -15,6 +15,7 @@ buildscript {
     }
 }
 
+
 apply plugin: 'com.android.library'
 
 android {
@@ -45,6 +46,10 @@ repositories {
     google()
     jcenter()
     mavenCentral()
+    // Appodeal
+    maven {
+      url "https://artifactory.appodeal.com/appodeal"
+    }
 }
 
 
@@ -55,4 +60,10 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+
+    // Appodeal
+    implementation 'com.appodeal.ads.sdk:core:2.10.3'
+    implementation 'com.explorestack:consent:1.0.1'
 }
+
+

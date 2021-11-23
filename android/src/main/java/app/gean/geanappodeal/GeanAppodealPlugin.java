@@ -6,9 +6,29 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 
+import com.appodeal.ads.Appodeal;
+import android.content.Intent;
+import android.net.Uri;
+import android.content.Context;
+import android.app.Activity;
+
 @CapacitorPlugin(name = "GeanAppodeal")
 public class GeanAppodealPlugin extends Plugin {
+    /* GeanAppodealPlugin does not have an activity to show ads.
+    App's MainActivity.java, at onCreate, should save it's activity here.
+    Sth like:
 
+    public class MainActivity extends BridgeActivity {
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          GeanAppodealPlugin.activity = this;
+          super.onCreate(savedInstanceState);
+      }
+    }
+     */
+    public static Activity activity;
+
+    private static String appodealKey = "26f05ce04b690dfecefd0a25935445ecbfa675e44163a056";
     private GeanAppodeal implementation = new GeanAppodeal();
 
     @PluginMethod
@@ -18,5 +38,12 @@ public class GeanAppodealPlugin extends Plugin {
         JSObject ret = new JSObject();
         ret.put("value", implementation.echo(value));
         call.resolve(ret);
+
+        Appodeal.show(GeanAppodealPlugin.activity, Appodeal.INTERSTITIAL);
+    }
+
+    public static void initializeAppodeal() {
+      Appodeal.setTesting(true);
+      Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL);
     }
 }
