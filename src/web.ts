@@ -7,4 +7,9 @@ export class GeanAppodealWeb extends WebPlugin implements GeanAppodealPlugin {
     console.log('ECHO', options);
     return options;
   }
+
+  async setTesting(options: { value: boolean }): Promise<{ value: boolean }> {
+    console.log('ECHO', options);
+    return options;
+  }
 }

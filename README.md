@@ -14,6 +14,7 @@ npx cap sync
 <docgen-index>
 
 * [`showInterstitial(...)`](#showinterstitial)
+* [`setTesting(...)`](#settesting)
 
 </docgen-index>
 
@@ -31,6 +32,21 @@ showInterstitial(options: { value: string; }) => Promise<{ value: string; }>
 | **`options`** | <code>{ value: string; }</code> |
 
 **Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
+
+--------------------
+
+
+### setTesting(...)
+
+```typescript
+setTesting(options: { value: boolean; }) => Promise<{ value: boolean; }>
+```
+
+| Param         | Type                             |
+| ------------- | -------------------------------- |
+| **`options`** | <code>{ value: boolean; }</code> |
+
+**Returns:** <code>Promise&lt;{ value: boolean; }&gt;</code>
 
 --------------------
 

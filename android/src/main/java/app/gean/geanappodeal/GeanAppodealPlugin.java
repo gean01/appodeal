@@ -29,7 +29,9 @@ public class GeanAppodealPlugin extends Plugin {
     public static Activity activity = null;
 
     private static String appodealKey = "26f05ce04b690dfecefd0a25935445ecbfa675e44163a056";
+    private static boolean useTestAds = true;
     private GeanAppodeal implementation = new GeanAppodeal();
+
 
     @PluginMethod
     public void showInterstitial(PluginCall call) {
@@ -44,9 +46,23 @@ public class GeanAppodealPlugin extends Plugin {
         }
     }
 
+    @PluginMethod
+    public void setTesting(PluginCall call) {
+        boolean value = call.getBoolean("value");
+        this.useTestAds = value;
+
+        JSObject ret = new JSObject();
+        ret.put("value", value);
+        call.resolve(ret);
+    }
+
     public static void initializeAppodeal() {
-      Appodeal.setTesting(true);
+      Appodeal.setTesting(GeanAppodealPlugin.useTestAds);
+
       if(GeanAppodealPlugin.activity != null){
+        Appodeal.disableNetwork(GeanAppodealPlugin.activity, "adcolony");
+        Appodeal.disableNetwork(GeanAppodealPlugin.activity, "mobvista");
+
         Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL);
       }
     }
