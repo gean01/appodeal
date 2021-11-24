@@ -26,24 +26,28 @@ public class GeanAppodealPlugin extends Plugin {
       }
     }
      */
-    public static Activity activity;
+    public static Activity activity = null;
 
     private static String appodealKey = "26f05ce04b690dfecefd0a25935445ecbfa675e44163a056";
     private GeanAppodeal implementation = new GeanAppodeal();
 
     @PluginMethod
-    public void echo(PluginCall call) {
+    public void showInterstitial(PluginCall call) {
         String value = call.getString("value");
 
         JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
+        ret.put("value", implementation.showInterstitial(value));
         call.resolve(ret);
 
-        Appodeal.show(GeanAppodealPlugin.activity, Appodeal.INTERSTITIAL);
+        if(GeanAppodealPlugin.activity != null){
+          Appodeal.show(GeanAppodealPlugin.activity, Appodeal.INTERSTITIAL);
+        }
     }
 
     public static void initializeAppodeal() {
       Appodeal.setTesting(true);
-      Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL);
+      if(GeanAppodealPlugin.activity != null){
+        Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL);
+      }
     }
 }

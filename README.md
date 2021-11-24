@@ -13,17 +13,17 @@ npx cap sync
 
 <docgen-index>
 
-* [`echo(...)`](#echo)
+* [`showInterstitial(...)`](#showinterstitial)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### echo(...)
+### showInterstitial(...)
 
 ```typescript
-echo(options: { value: string; }) => Promise<{ value: string; }>
+showInterstitial(options: { value: string; }) => Promise<{ value: string; }>
 ```
 
 | Param         | Type                            |
