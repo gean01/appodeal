@@ -49,10 +49,20 @@ public class GeanAppodealPlugin extends Plugin {
     @PluginMethod
     public void setTesting(PluginCall call) {
         boolean value = call.getBoolean("value");
-        this.useTestAds = value;
+        GeanAppodealPlugin.useTestAds = value;
 
         JSObject ret = new JSObject();
         ret.put("value", value);
+        call.resolve(ret);
+    }
+
+    @PluginMethod
+    public void setKey(PluginCall call) {
+        String key = call.getString("key");
+        GeanAppodealPlugin.appodealKey = key;
+
+        JSObject ret = new JSObject();
+        ret.put("key", key);
         call.resolve(ret);
     }
 

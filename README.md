@@ -15,6 +15,7 @@ npx cap sync
 
 * [`showInterstitial(...)`](#showinterstitial)
 * [`setTesting(...)`](#settesting)
+* [`setKey(...)`](#setkey)
 
 </docgen-index>
 
@@ -47,6 +48,21 @@ setTesting(options: { value: boolean; }) => Promise<{ value: boolean; }>
 | **`options`** | <code>{ value: boolean; }</code> |
 
 **Returns:** <code>Promise&lt;{ value: boolean; }&gt;</code>
+
+--------------------
+
+
+### setKey(...)
+
+```typescript
+setKey(options: { key: string; }) => Promise<{ key: string; }>
+```
+
+| Param         | Type                          |
+| ------------- | ----------------------------- |
+| **`options`** | <code>{ key: string; }</code> |
+
+**Returns:** <code>Promise&lt;{ key: string; }&gt;</code>
 
 --------------------
 
