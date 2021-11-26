@@ -25,14 +25,14 @@ npx cap sync
 ### showInterstitial(...)
 
 ```typescript
-showInterstitial(options: { value: string; }) => Promise<{ value: string; }>
+showInterstitial(options: { value: string; }) => any
 ```
 
 | Param         | Type                            |
 | ------------- | ------------------------------- |
 | **`options`** | <code>{ value: string; }</code> |
 
-**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
+**Returns:** <code>any</code>
 
 --------------------
 
@@ -40,14 +40,14 @@ showInterstitial(options: { value: string; }) => Promise<{ value: string; }>
 ### setTesting(...)
 
 ```typescript
-setTesting(options: { value: boolean; }) => Promise<{ value: boolean; }>
+setTesting(options: { value: boolean; }) => any
 ```
 
 | Param         | Type                             |
 | ------------- | -------------------------------- |
 | **`options`** | <code>{ value: boolean; }</code> |
 
-**Returns:** <code>Promise&lt;{ value: boolean; }&gt;</code>
+**Returns:** <code>any</code>
 
 --------------------
 
@@ -55,14 +55,14 @@ setTesting(options: { value: boolean; }) => Promise<{ value: boolean; }>
 ### setKey(...)
 
 ```typescript
-setKey(options: { key: string; }) => Promise<{ key: string; }>
+setKey(options: { key: string; }) => any
 ```
 
 | Param         | Type                          |
 | ------------- | ----------------------------- |
 | **`options`** | <code>{ key: string; }</code> |
 
-**Returns:** <code>Promise&lt;{ key: string; }&gt;</code>
+**Returns:** <code>any</code>
 
 --------------------
 
