@@ -13,8 +13,8 @@ npx cap sync
 
 <docgen-index>
 
-* [`showInterstitial(...)`](#showinterstitial)
-* [`setTesting(...)`](#settesting)
+* [`initializeAppodeal(...)`](#initializeappodeal)
+* [`showInterstitial()`](#showinterstitial)
 * [`setKey(...)`](#setkey)
 
 </docgen-index>
@@ -22,30 +22,26 @@ npx cap sync
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### showInterstitial(...)
+### initializeAppodeal(...)
 
 ```typescript
-showInterstitial(options: { value: string; }) => any
+initializeAppodeal(options: { useTestAds: boolean; }) => any
 ```
 
-| Param         | Type                            |
-| ------------- | ------------------------------- |
-| **`options`** | <code>{ value: string; }</code> |
+| Param         | Type                                  |
+| ------------- | ------------------------------------- |
+| **`options`** | <code>{ useTestAds: boolean; }</code> |
 
 **Returns:** <code>any</code>
 
 --------------------
 
 
-### setTesting(...)
+### showInterstitial()
 
 ```typescript
-setTesting(options: { value: boolean; }) => any
+showInterstitial() => any
 ```
-
-| Param         | Type                             |
-| ------------- | -------------------------------- |
-| **`options`** | <code>{ value: boolean; }</code> |
 
 **Returns:** <code>any</code>
 
