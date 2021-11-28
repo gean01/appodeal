@@ -15,7 +15,6 @@ npx cap sync
 
 * [`initializeAppodeal(...)`](#initializeappodeal)
 * [`showInterstitial()`](#showinterstitial)
-* [`setKey(...)`](#setkey)
 
 </docgen-index>
 
@@ -25,12 +24,12 @@ npx cap sync
 ### initializeAppodeal(...)
 
 ```typescript
-initializeAppodeal(options: { useTestAds: boolean; }) => any
+initializeAppodeal(options: { key: string; useTestAds: boolean; }) => any
 ```
 
-| Param         | Type                                  |
-| ------------- | ------------------------------------- |
-| **`options`** | <code>{ useTestAds: boolean; }</code> |
+| Param         | Type                                               |
+| ------------- | -------------------------------------------------- |
+| **`options`** | <code>{ key: string; useTestAds: boolean; }</code> |
 
 **Returns:** <code>any</code>
 
@@ -42,21 +41,6 @@ initializeAppodeal(options: { useTestAds: boolean; }) => any
 ```typescript
 showInterstitial() => any
 ```
-
-**Returns:** <code>any</code>
-
---------------------
-
-
-### setKey(...)
-
-```typescript
-setKey(options: { key: string; }) => any
-```
-
-| Param         | Type                          |
-| ------------- | ----------------------------- |
-| **`options`** | <code>{ key: string; }</code> |
 
 **Returns:** <code>any</code>
 
