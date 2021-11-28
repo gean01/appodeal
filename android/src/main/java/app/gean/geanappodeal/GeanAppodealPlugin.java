@@ -52,46 +52,46 @@ public class GeanAppodealPlugin extends Plugin {
         if(GeanAppodealPlugin.activity != null){
           result = true;
           Appodeal.setTesting(useTestAds);
-          GeanAppodealPlugin.toast("initializeAppodeal, useTestAds = " + String.valueOf(useTestAds));
+          // GeanAppodealPlugin.toast("initializeAppodeal, useTestAds = " + String.valueOf(useTestAds));
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "adcolony");
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "mobvista");
+          Appodeal.disableNetwork(GeanAppodealPlugin.activity, "admob");
           Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL);
         }
 
-        Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
-          @Override
-          public void onInterstitialLoaded(boolean isPrecache) {
-            // Toast toast = Toast.makeText(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, duration);
-            Toast toast = Toast.makeText(GeanAppodealPlugin.activity, "loaded", Toast.LENGTH_LONG);
-            toast.show();
-          }
+        // Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
+        //   @Override
+        //   public void onInterstitialLoaded(boolean isPrecache) {
+        //     Toast toast = Toast.makeText(GeanAppodealPlugin.activity, "loaded", Toast.LENGTH_LONG);
+        //     toast.show();
+        //   }
 
+        //   @Override
+        //   public void onInterstitialFailedToLoad() {
+        //     GeanAppodealPlugin.toast("deu ruim ");
+        //   }
 
-          @Override
-          public void onInterstitialFailedToLoad() {
-            GeanAppodealPlugin.toast("deu ruim");
-          }
-          @Override
-          public void onInterstitialShown() {
-            GeanAppodealPlugin.toast("onInterstitialShown");
-          }
-          @Override
-          public void onInterstitialShowFailed() {
-            GeanAppodealPlugin.toast("onInterstitialShowFailed");
-          }
-          @Override
-          public void onInterstitialClicked() {
-            GeanAppodealPlugin.toast("onInterstitialClicked");
-          }
-          @Override
-          public void onInterstitialClosed() {
-            GeanAppodealPlugin.toast("onInterstitialClosed");
-          }
-          @Override
-          public void onInterstitialExpired()  {
-            GeanAppodealPlugin.toast("onInterstitialExpired");
-          }     
-        });
+        //   @Override
+        //   public void onInterstitialShown() {
+        //     GeanAppodealPlugin.toast("onInterstitialShown");
+        //   }
+        //   @Override
+        //   public void onInterstitialShowFailed() {
+        //     GeanAppodealPlugin.toast("onInterstitialShowFailed");
+        //   }
+        //   @Override
+        //   public void onInterstitialClicked() {
+        //     GeanAppodealPlugin.toast("onInterstitialClicked");
+        //   }
+        //   @Override
+        //   public void onInterstitialClosed() {
+        //     GeanAppodealPlugin.toast("onInterstitialClosed");
+        //   }
+        //   @Override
+        //   public void onInterstitialExpired()  {
+        //     GeanAppodealPlugin.toast("onInterstitialExpired");
+        //   }     
+        // });
 
         JSObject ret = new JSObject();
         ret.put("result", result);
@@ -102,27 +102,23 @@ public class GeanAppodealPlugin extends Plugin {
     public void showInterstitial(PluginCall call) {
       boolean result = false;
       int duration = Toast.LENGTH_LONG;
-      String x = "";
 
-      if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
-        // if(GeanAppodealPlugin.useTestAds){
-        
-        x = "Appodeal.isLoaded";
-      }else{
-        x = "!Appodeal.isLoaded";
-      }
-
-      // Toast toast = Toast.makeText(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, duration);
-      GeanAppodealPlugin.toast(x);
+      // String x = "";
+      // if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
+      //   x = "Appodeal.isLoaded";
+      // }else{
+      //   x = "!Appodeal.isLoaded";
+      // }
+      // GeanAppodealPlugin.toast(x);
 
       String value = call.getString("value");
       JSObject ret = new JSObject();
 
       if(GeanAppodealPlugin.activity != null){
-        // if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
+        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
           Appodeal.show(GeanAppodealPlugin.activity, Appodeal.INTERSTITIAL);
           result = true;  
-        // }
+        }
       }
 
       ret.put("result", result);
@@ -156,7 +152,7 @@ public class GeanAppodealPlugin extends Plugin {
 
     public static void setActivity(Activity activity){
       GeanAppodealPlugin.activity = activity;
-      GeanAppodealPlugin.toast("setActivity");
+      // GeanAppodealPlugin.toast("setActivity");
     }
 
 
