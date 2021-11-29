@@ -3,7 +3,7 @@ import { WebPlugin } from '@capacitor/core';
 import type { GeanAppodealPlugin } from './definitions';
 
 export class GeanAppodealWeb extends WebPlugin implements GeanAppodealPlugin {
-  async initializeAppodeal(options: { key: string, useTestAds: boolean }): Promise<boolean> {
+  async initializeAppodeal(options: { key: string, useTestAds: boolean, consent: boolean }): Promise<boolean> {
     console.log(options);
     return true;
   }

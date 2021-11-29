@@ -24,12 +24,12 @@ npx cap sync
 ### initializeAppodeal(...)
 
 ```typescript
-initializeAppodeal(options: { key: string; useTestAds: boolean; }) => any
+initializeAppodeal(options: { key: string; useTestAds: boolean; consent: boolean; }) => any
 ```
 
-| Param         | Type                                               |
-| ------------- | -------------------------------------------------- |
-| **`options`** | <code>{ key: string; useTestAds: boolean; }</code> |
+| Param         | Type                                                                 |
+| ------------- | -------------------------------------------------------------------- |
+| **`options`** | <code>{ key: string; useTestAds: boolean; consent: boolean; }</code> |
 
 **Returns:** <code>any</code>
 

@@ -36,6 +36,7 @@ public class GeanAppodealPlugin extends Plugin {
     private static Activity activity = null;
     private static String appodealKey = "";
     private static boolean useTestAds = true;
+    // private static boolean consent = false;
     private GeanAppodeal implementation = new GeanAppodeal();
 
     @PluginMethod
@@ -44,6 +45,9 @@ public class GeanAppodealPlugin extends Plugin {
 
         boolean useTestAds = call.getBoolean("useTestAds");
         GeanAppodealPlugin.useTestAds = useTestAds;
+
+        boolean consent = call.getBoolean("consent");
+        // GeanAppodealPlugin.consent = consent;
         
         String key = call.getString("key");
         GeanAppodealPlugin.appodealKey = key;
@@ -56,7 +60,7 @@ public class GeanAppodealPlugin extends Plugin {
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "adcolony");
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "mobvista");
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "admob");
-          Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL);
+          Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL, consent);
         }
 
         // Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {

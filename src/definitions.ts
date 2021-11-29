@@ -1,5 +1,5 @@
 export interface GeanAppodealPlugin {
-  initializeAppodeal(options: { key: string, useTestAds: boolean }): Promise<boolean>;
+  initializeAppodeal(options: { key: string, useTestAds: boolean, consent: boolean }): Promise<boolean>;
   showInterstitial(): Promise<boolean>;
   
 
