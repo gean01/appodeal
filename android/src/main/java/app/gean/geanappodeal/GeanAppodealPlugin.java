@@ -41,6 +41,7 @@ public class GeanAppodealPlugin extends Plugin {
 
     @PluginMethod
     public void initializeAppodeal(PluginCall call) {
+        GeanAppodealPlugin.toast("initializeAppodeal");
         boolean result =  false;
 
         boolean useTestAds = call.getBoolean("useTestAds");
@@ -52,15 +53,18 @@ public class GeanAppodealPlugin extends Plugin {
         String key = call.getString("key");
         GeanAppodealPlugin.appodealKey = key;
 
+        String msg = "initializeAppodeal, useTestAds = " + String.valueOf(useTestAds) + " key = " + key + " consent = " + String.valueOf(consent);
+        GeanAppodealPlugin.toast(msg);
 
         if(GeanAppodealPlugin.activity != null){
           result = true;
           Appodeal.setTesting(useTestAds);
-          // GeanAppodealPlugin.toast("initializeAppodeal, useTestAds = " + String.valueOf(useTestAds));
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "adcolony");
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "mobvista");
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "admob");
           Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL, consent);
+        }else{
+          GeanAppodealPlugin.toast("activity is null");
         }
 
         // Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
@@ -107,6 +111,8 @@ public class GeanAppodealPlugin extends Plugin {
       boolean result = false;
       int duration = Toast.LENGTH_LONG;
 
+      GeanAppodealPlugin.toast("showInterstitial");
+
       // String x = "";
       // if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
       //   x = "Appodeal.isLoaded";
@@ -122,6 +128,9 @@ public class GeanAppodealPlugin extends Plugin {
         if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
           Appodeal.show(GeanAppodealPlugin.activity, Appodeal.INTERSTITIAL);
           result = true;  
+        }else{
+          String msg = "Appodeal is not loaded";
+          GeanAppodealPlugin.toast(msg);
         }
       }
 
@@ -150,6 +159,10 @@ public class GeanAppodealPlugin extends Plugin {
     // }
 
     public static void toast(String message){
+      if(GeanAppodealPlugin.activity == null){
+        return;
+      }
+
       Toast toast = Toast.makeText(GeanAppodealPlugin.activity, message, Toast.LENGTH_LONG);
       toast.show();
     }
