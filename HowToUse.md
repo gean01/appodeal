@@ -1,3 +1,21 @@
+# Create sub-project "gean-appodeal"
+```
+in android/capacitor.settings.gradle
+include ':gean-appodeal'
+project(':gean-appodeal').projectDir = new File('../node_modules/gean-appodeal/android')
+```
+# Add sub-project gean-appodeal as an app project dependency
+```
+android/app/build.gradle
+dependencies{
+...
+implementation project(':gean-appodeal')
+...
+}
+```
+
+
+
 # Update gradle version
 ```
 android/gradle/wrapper/gradle-wrapper.properties
