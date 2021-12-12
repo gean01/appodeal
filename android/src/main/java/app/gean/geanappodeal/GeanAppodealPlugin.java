@@ -57,7 +57,7 @@ public class GeanAppodealPlugin extends Plugin {
         String key = call.getString("key");
         GeanAppodealPlugin.appodealKey = key;
 
-        String msg = "initializeAppodeal, useTestAds = " + String.valueOf(useTestAds) + " key = " + key + " consent = " + String.valueOf(consent);
+        String msg = "initializeAppodeal, isDev = " + String.valueOf(isDev) + " useTestAds = " + String.valueOf(useTestAds) + " key = " + key + " consent = " + String.valueOf(consent);
         GeanAppodealPlugin.debugMessage(msg);
 
         if(GeanAppodealPlugin.activity != null){
