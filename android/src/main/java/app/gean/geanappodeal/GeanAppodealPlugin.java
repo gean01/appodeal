@@ -178,7 +178,7 @@ public class GeanAppodealPlugin extends Plugin {
 
     public static void setActivity(Activity activity){
       GeanAppodealPlugin.activity = activity;
-      // GeanAppodealPlugin.debugMessage("setActivity");
+//       GeanAppodealPlugin.debugMessage("setActivity");
     }
 
 

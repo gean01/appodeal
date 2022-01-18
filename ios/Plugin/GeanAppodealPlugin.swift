@@ -9,10 +9,18 @@ import Capacitor
 public class GeanAppodealPlugin: CAPPlugin {
     private let implementation = GeanAppodeal()
 
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
+    @objc func initializeAppodeal(_ call: CAPPluginCall) {
+        // let value = call.getString("value") ?? ""
         call.resolve([
-            "value": implementation.echo(value)
+            "value": implementation.initializeAppodeal()
         ])
     }
+
+    @objc func showInterstitial(_ call: CAPPluginCall) {
+        // let value = call.getString("value") ?? ""
+        call.resolve([
+            "value": implementation.showInterstitial()
+        ])
+    }
+    
 }
