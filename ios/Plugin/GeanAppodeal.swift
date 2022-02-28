@@ -1,24 +1,31 @@
 import Foundation
-import Appodeal
+
+@objc public protocol ProtocoloAppodeal{
+//    func appodealInit(key: String, useTestAds: Bool)
+    func appodealShowInterstitial()
+}
+
 
 @objc public class GeanAppodeal: NSObject {
    private static var activity: UIViewController = UIViewController()
-   private let appodelAppKey = "7518ca51e2d82027e00a3b5ec23cd1c3dd4644767a3454f7"
-
-    @objc public func initializeAppodeal() -> String {
-        Appodeal.initialize(withApiKey: self.appodelAppKey, types: [.interstitial], hasConsent: true)
+   
+    @objc public func initializeAppodeal(key: String, useTestAds: Bool) -> String {
+//        if let delegate = UIApplication.shared.delegate as? ProtocoloAppodeal {
+//            delegate.appodealInit(key: key, useTestAds: useTestAds)
+//        }
         print("invocado: GeanAppodeal initializeAppodeal")
         return "dummy response"
     }
 
     @objc public func showInterstitial() -> String {
+        DispatchQueue.main.async {
+            if let delegate = UIApplication.shared.delegate as? ProtocoloAppodeal {
+                delegate.appodealShowInterstitial()
+            }
+        }
+        
+
         print("invocado: GeanAppodeal showInterstitial")
-//        if(Appodeal.isReadyForShow(with: .interstitial)){
-//            print(" Appodealready")
-//            Appodeal.showAd(AppodealShowStyle.interstitial, rootViewController: self)
-//        }else{
-//            print("Appodeal NOT ready")
-//        }
         return "dummy response"
     }
 
@@ -26,4 +33,9 @@ import Appodeal
         print("setting activity to \(activity)")
         GeanAppodeal.activity = activity
     }
+    
+//    @objc public static func setNativeAppodealInstance(nativeAppodeal: NativeAppodeal) {
+//        print("setting activity to \(activity)")
+//        GeanAppodeal.activity = activity
+//    }
 }

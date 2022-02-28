@@ -132,7 +132,7 @@ public class GeanAppodealPlugin extends Plugin {
           Appodeal.show(GeanAppodealPlugin.activity, Appodeal.INTERSTITIAL);
           result = true;  
         }else{
-          String msg = "Appodeal is not loaded";
+          String msg = "interstitial is not loaded";
           GeanAppodealPlugin.debugMessage(msg);
         }
       }
@@ -141,25 +141,20 @@ public class GeanAppodealPlugin extends Plugin {
       call.resolve(ret);
     }
 
-    // @PluginMethod
-    // public void setTesting(PluginCall call) {
-    //     boolean value = call.getBoolean("value");
-    //     GeanAppodealPlugin.useTestAds = value;
+    @PluginMethod
+    public void interstitialIsLoaded(PluginCall call) {
+        boolean isLoaded = Appodeal.isLoaded(Appodeal.INTERSTITIAL);
+        GeanAppodealPlugin.debugMessage("interstitialIsLoaded = " + isLoaded);
 
-    //     JSObject ret = new JSObject();
-    //     ret.put("value", value);
-    //     call.resolve(ret);
-    // }
+        if(isLoaded){
+            JSObject ret = new JSObject();
+            ret.put("value", isLoaded);
+            call.resolve(ret);
+        }else{
+            call.reject("Interstitial is not loaded");
+        }
 
-    // @PluginMethod
-    // public void setKey(PluginCall call) {
-    //     String key = call.getString("key");
-    //     GeanAppodealPlugin.appodealKey = key;
-
-    //     JSObject ret = new JSObject();
-    //     ret.put("key", key);
-    //     call.resolve(ret);
-    // }
+    }
 
     private static void debugMessage(String message){
       // Toast messages are only in dev mode (for debugging)
@@ -178,18 +173,5 @@ public class GeanAppodealPlugin extends Plugin {
 
     public static void setActivity(Activity activity){
       GeanAppodealPlugin.activity = activity;
-//       GeanAppodealPlugin.debugMessage("setActivity");
     }
-
-
-    // public static void initializeAppodeal() {
-    //   Appodeal.setTesting(false);
-
-    //   if(GeanAppodealPlugin.activity != null){
-    //     Appodeal.disableNetwork(GeanAppodealPlugin.activity, "adcolony");
-    //     Appodeal.disableNetwork(GeanAppodealPlugin.activity, "mobvista");
-
-    //     Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL);
-    //   }
-    // }
 }

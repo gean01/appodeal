@@ -10,9 +10,12 @@ public class GeanAppodealPlugin: CAPPlugin {
     private let implementation = GeanAppodeal()
 
     @objc func initializeAppodeal(_ call: CAPPluginCall) {
-        // let value = call.getString("value") ?? ""
+        let key = call.getString("key") ?? ""
+//        let isdDev = call.getString("isDev") ?? false
+        let useTestAds = call.getBool("useTestAds") ?? true
+
         call.resolve([
-            "value": implementation.initializeAppodeal()
+            "value": implementation.initializeAppodeal(key: key, useTestAds: useTestAds)
         ])
     }
 
