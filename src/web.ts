@@ -24,6 +24,11 @@ export class GeanAppodealWeb extends WebPlugin implements GeanAppodealPlugin {
     return true;
   }
 
+  async bannerIsLoaded(): Promise<boolean> {
+    console.log('bannerIsLoaded');
+    return true;
+  }
+
   // async setTesting(options: { value: boolean }): Promise<{ value: boolean }> {
   //   console.log('setTesting', options);
   //   return options;

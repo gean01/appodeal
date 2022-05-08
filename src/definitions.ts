@@ -3,4 +3,5 @@ export interface GeanAppodealPlugin {
   showInterstitial(): Promise<boolean>;
   showBanner(): Promise<boolean>;
   interstitialIsLoaded(): Promise<boolean>;
+  bannerIsLoaded(): Promise<boolean>;
 }

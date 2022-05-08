@@ -17,6 +17,7 @@ npx cap sync
 * [`showInterstitial()`](#showinterstitial)
 * [`showBanner()`](#showbanner)
 * [`interstitialIsLoaded()`](#interstitialisloaded)
+* [`bannerIsLoaded()`](#bannerisloaded)
 
 </docgen-index>
 
@@ -64,6 +65,17 @@ showBanner() => any
 
 ```typescript
 interstitialIsLoaded() => any
+```
+
+**Returns:** <code>any</code>
+
+--------------------
+
+
+### bannerIsLoaded()
+
+```typescript
+bannerIsLoaded() => any
 ```
 
 **Returns:** <code>any</code>

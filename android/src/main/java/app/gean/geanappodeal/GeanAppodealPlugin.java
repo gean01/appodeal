@@ -107,42 +107,46 @@ public class GeanAppodealPlugin extends Plugin {
           }     
         });
 
-        Appodeal.setBannerCallbacks(new BannerCallbacks() {
-          @Override
-          public void onBannerLoaded(int height, boolean isPrecache) {
-            GeanAppodealPlugin.debugMessage("onBannerLoaded");
-            
-            if(GeanAppodealPlugin.mustShowBanner){
-              Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
-            }
-          }
-
-          @Override
-          public void onBannerFailedToLoad() {
-            // Called when banner failed to load
-          }
-          @Override
-          public void onBannerShown() {
-            // Called when banner is shown
-          }
-          @Override
-          public void onBannerShowFailed() {
-            // Called when banner show failed
-          }
-          @Override
-          public void onBannerClicked() {
-            // Called when banner is clicked
-          }
-          @Override
-          public void onBannerExpired() {
-            // Called when banner is expired
-          }
-        });
+        
 
         JSObject ret = new JSObject();
         ret.put("result", result);
         call.resolve(ret);
     }
+
+    // private void setBannerCallbacks(){
+    //   Appodeal.setBannerCallbacks(new BannerCallbacks() {
+    //     @Override
+    //     public void onBannerLoaded(int height, boolean isPrecache) {
+    //       GeanAppodealPlugin.debugMessage("onBannerLoaded");
+          
+    //       if(GeanAppodealPlugin.mustShowBanner){
+    //         Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
+    //       }
+    //     }
+
+    //     @Override
+    //     public void onBannerFailedToLoad() {
+    //       // Called when banner failed to load
+    //     }
+    //     @Override
+    //     public void onBannerShown() {
+    //       // Called when banner is shown
+    //     }
+    //     @Override
+    //     public void onBannerShowFailed() {
+    //       // Called when banner show failed
+    //     }
+    //     @Override
+    //     public void onBannerClicked() {
+    //       // Called when banner is clicked
+    //     }
+    //     @Override
+    //     public void onBannerExpired() {
+    //       // Called when banner is expired
+    //     }
+    //   });
+    // }
 
     @PluginMethod
     public void showInterstitial(PluginCall call) {
@@ -205,7 +209,20 @@ public class GeanAppodealPlugin extends Plugin {
         }else{
             call.reject("Interstitial is not loaded");
         }
+    }
 
+    @PluginMethod
+    public void bannerIsLoaded(PluginCall call) {
+        boolean isLoaded = Appodeal.isLoaded(Appodeal.BANNER);
+        GeanAppodealPlugin.debugMessage("bannerIsLoaded = " + isLoaded);
+
+        if(isLoaded){
+            JSObject ret = new JSObject();
+            ret.put("value", isLoaded);
+            call.resolve(ret);
+        }else{
+            call.reject("Banner is not loaded");
+        }
     }
 
     private static void debugMessage(String message){
