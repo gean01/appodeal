@@ -13,6 +13,11 @@ export class GeanAppodealWeb extends WebPlugin implements GeanAppodealPlugin {
     return true;
   }
 
+  async showBanner(): Promise<boolean> {
+    console.log('showBanner');
+    return true;
+  }
+
 
   async interstitialIsLoaded(): Promise<boolean> {
     console.log('interstitialIsLoaded');

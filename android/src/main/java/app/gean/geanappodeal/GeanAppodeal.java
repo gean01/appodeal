@@ -10,4 +10,8 @@ public class GeanAppodeal {
   public String showInterstitial(String value) {
     return value;
   }
+
+  public String showBanner(String value) {
+    return value;
+  }
 }

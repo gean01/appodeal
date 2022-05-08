@@ -15,6 +15,7 @@ npx cap sync
 
 * [`initializeAppodeal(...)`](#initializeappodeal)
 * [`showInterstitial()`](#showinterstitial)
+* [`showBanner()`](#showbanner)
 * [`interstitialIsLoaded()`](#interstitialisloaded)
 
 </docgen-index>
@@ -41,6 +42,17 @@ initializeAppodeal(options: { key: string; isDev: boolean; useTestAds: boolean; 
 
 ```typescript
 showInterstitial() => any
+```
+
+**Returns:** <code>any</code>
+
+--------------------
+
+
+### showBanner()
+
+```typescript
+showBanner() => any
 ```
 
 **Returns:** <code>any</code>

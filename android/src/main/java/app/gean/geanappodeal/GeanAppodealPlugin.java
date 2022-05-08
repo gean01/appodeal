@@ -8,6 +8,7 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 
 import com.appodeal.ads.Appodeal;
 import com.appodeal.ads.InterstitialCallbacks;
+import com.appodeal.ads.BannerCallbacks;
 import android.content.Intent;
 import android.net.Uri;
 import android.content.Context;
@@ -37,6 +38,7 @@ public class GeanAppodealPlugin extends Plugin {
     private static String appodealKey = "";
     private static boolean useTestAds = true;
     private static boolean isDev = false;
+    private static boolean mustShowBanner = false;
     // private static boolean consent = false;
     private GeanAppodeal implementation = new GeanAppodeal();
 
@@ -104,6 +106,37 @@ public class GeanAppodealPlugin extends Plugin {
           }     
         });
 
+        Appodeal.setBannerCallbacks(new BannerCallbacks() {
+          @Override
+          public void onBannerLoaded(int height, boolean isPrecache) {
+            GeanAppodealPlugin.debugMessage("Banner loaded");
+            if(GeanAppodealPlugin.mustShowBanner){
+              Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
+            }
+          }
+
+          @Override
+          public void onBannerFailedToLoad() {
+            // Called when banner failed to load
+          }
+          @Override
+          public void onBannerShown() {
+            // Called when banner is shown
+          }
+          @Override
+          public void onBannerShowFailed() {
+            // Called when banner show failed
+          }
+          @Override
+          public void onBannerClicked() {
+            // Called when banner is clicked
+          }
+          @Override
+          public void onBannerExpired() {
+            // Called when banner is expired
+          }
+        });
+
         JSObject ret = new JSObject();
         ret.put("result", result);
         call.resolve(ret);
@@ -112,17 +145,7 @@ public class GeanAppodealPlugin extends Plugin {
     @PluginMethod
     public void showInterstitial(PluginCall call) {
       boolean result = false;
-      int duration = Toast.LENGTH_LONG;
-
       GeanAppodealPlugin.debugMessage("showInterstitial");
-
-      // String x = "";
-      // if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
-      //   x = "Appodeal.isLoaded";
-      // }else{
-      //   x = "!Appodeal.isLoaded";
-      // }
-      // GeanAppodealPlugin.debugMessage(x);
 
       String value = call.getString("value");
       JSObject ret = new JSObject();
@@ -134,6 +157,33 @@ public class GeanAppodealPlugin extends Plugin {
         }else{
           String msg = "interstitial is not loaded";
           GeanAppodealPlugin.debugMessage(msg);
+        }
+      }
+
+      ret.put("result", result);
+      call.resolve(ret);
+    }
+
+    @PluginMethod
+    public void showBanner(PluginCall call) {
+      boolean result = false;
+      GeanAppodealPlugin.debugMessage("showBanner"); 
+
+      String value = call.getString("value");
+      JSObject ret = new JSObject();
+
+      if(GeanAppodealPlugin.activity != null){
+        if(Appodeal.isLoaded(Appodeal.BANNER)){
+          GeanAppodealPlugin.mustShowBanner = false;
+          Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
+          result = true;  
+        }else{
+          String msg = "banner is not loaded";
+          GeanAppodealPlugin.debugMessage(msg);
+          /* Set flg so that when banner loads, it is shown
+            Check method onBannerLoaded in this file
+          */
+          GeanAppodealPlugin.mustShowBanner = true;
         }
       }
 
