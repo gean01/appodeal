@@ -69,6 +69,7 @@ public class GeanAppodealPlugin extends Plugin {
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "mobvista");
           Appodeal.disableNetwork(GeanAppodealPlugin.activity, "admob");
           Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL, consent);
+          Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.BANNER, consent);
         }else{
           GeanAppodealPlugin.debugMessage("activity is null");
         }
@@ -109,7 +110,8 @@ public class GeanAppodealPlugin extends Plugin {
         Appodeal.setBannerCallbacks(new BannerCallbacks() {
           @Override
           public void onBannerLoaded(int height, boolean isPrecache) {
-            GeanAppodealPlugin.debugMessage("Banner loaded");
+            GeanAppodealPlugin.debugMessage("onBannerLoaded");
+            
             if(GeanAppodealPlugin.mustShowBanner){
               Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
             }
@@ -174,7 +176,7 @@ public class GeanAppodealPlugin extends Plugin {
 
       if(GeanAppodealPlugin.activity != null){
         if(Appodeal.isLoaded(Appodeal.BANNER)){
-          GeanAppodealPlugin.mustShowBanner = false;
+          // GeanAppodealPlugin.mustShowBanner = false;
           Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
           result = true;  
         }else{
@@ -183,7 +185,7 @@ public class GeanAppodealPlugin extends Plugin {
           /* Set flg so that when banner loads, it is shown
             Check method onBannerLoaded in this file
           */
-          GeanAppodealPlugin.mustShowBanner = true;
+          // GeanAppodealPlugin.mustShowBanner = true;
         }
       }
 
