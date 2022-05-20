@@ -182,7 +182,7 @@ public class GeanAppodealPlugin extends Plugin {
         if(Appodeal.isLoaded(Appodeal.BANNER)){
           // GeanAppodealPlugin.mustShowBanner = false;
           Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
-          result = true;  
+          call.resolve(ret);
         }else{
           String msg = "banner is not loaded";
           GeanAppodealPlugin.debugMessage(msg);
@@ -194,7 +194,7 @@ public class GeanAppodealPlugin extends Plugin {
       }
 
       ret.put("result", result);
-      call.resolve(ret);
+      call.reject("banner not loaded");
     }
 
     @PluginMethod
