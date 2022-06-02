@@ -15,7 +15,8 @@ npx cap sync
 
 * [`initializeAppodeal(...)`](#initializeappodeal)
 * [`showInterstitial()`](#showinterstitial)
-* [`showBanner()`](#showbanner)
+* [`showBannerBottom()`](#showbannerbottom)
+* [`showBannerTop()`](#showbannertop)
 * [`interstitialIsLoaded()`](#interstitialisloaded)
 * [`bannerIsLoaded()`](#bannerisloaded)
 
@@ -50,10 +51,21 @@ showInterstitial() => any
 --------------------
 
 
-### showBanner()
+### showBannerBottom()
 
 ```typescript
-showBanner() => any
+showBannerBottom() => any
+```
+
+**Returns:** <code>any</code>
+
+--------------------
+
+
+### showBannerTop()
+
+```typescript
+showBannerTop() => any
 ```
 
 **Returns:** <code>any</code>

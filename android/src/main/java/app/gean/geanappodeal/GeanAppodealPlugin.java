@@ -171,9 +171,9 @@ public class GeanAppodealPlugin extends Plugin {
     }
 
     @PluginMethod
-    public void showBanner(PluginCall call) {
+    public void showBannerBottom(PluginCall call) {
       boolean result = false;
-      GeanAppodealPlugin.debugMessage("showBanner"); 
+      GeanAppodealPlugin.debugMessage("showBannerBottom"); 
 
       String value = call.getString("value");
       JSObject ret = new JSObject();
@@ -182,6 +182,33 @@ public class GeanAppodealPlugin extends Plugin {
         if(Appodeal.isLoaded(Appodeal.BANNER)){
           // GeanAppodealPlugin.mustShowBanner = false;
           Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
+          call.resolve(ret);
+        }else{
+          String msg = "banner is not loaded";
+          GeanAppodealPlugin.debugMessage(msg);
+          /* Set flg so that when banner loads, it is shown
+            Check method onBannerLoaded in this file
+          */
+          // GeanAppodealPlugin.mustShowBanner = true;
+        }
+      }
+
+      ret.put("result", result);
+      call.reject("banner not loaded");
+    }
+
+    @PluginMethod
+    public void showBannerTop(PluginCall call) {
+      boolean result = false;
+      GeanAppodealPlugin.debugMessage("showBanner on top"); 
+
+      String value = call.getString("value");
+      JSObject ret = new JSObject();
+
+      if(GeanAppodealPlugin.activity != null){
+        if(Appodeal.isLoaded(Appodeal.BANNER)){
+          // GeanAppodealPlugin.mustShowBanner = false;
+          Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_TOP);
           call.resolve(ret);
         }else{
           String msg = "banner is not loaded";

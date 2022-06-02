@@ -13,11 +13,15 @@ export class GeanAppodealWeb extends WebPlugin implements GeanAppodealPlugin {
     return true;
   }
 
-  async showBanner(): Promise<boolean> {
-    console.log('showBanner');
+  async showBannerTop(): Promise<boolean> {
+    console.log('showBannerTop');
     return true;
   }
 
+  async showBannerBottom(): Promise<boolean> {
+    console.log('showBannerBottom');
+    return true;
+  }
 
   async interstitialIsLoaded(): Promise<boolean> {
     console.log('interstitialIsLoaded');
