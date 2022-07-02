@@ -19,6 +19,8 @@ implementation project(':gean-appodeal')
 }
 ```
 
+ln -s ../../../gean-appodeal node_modules/gean-appodeal
+
 # Update gradle version
 
 ```
