@@ -15,7 +15,7 @@ public class GeanAppodealPlugin: CAPPlugin {
         return GeanAppodealPlugin.showInterstitial
     }
 
-    public func resetShouldShowInterstitial(){
+    public static func resetShouldShowInterstitial(){
         print("Definindo self.showInterstitial como false")
         GeanAppodealPlugin.showInterstitial = false
     }

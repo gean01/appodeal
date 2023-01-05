@@ -28,7 +28,7 @@ import Foundation
         print("invocado: GeanAppodeal showInterstitial")
         return "dummy response"
     }
-
+    
     @objc public static func setActivity(activity: UIViewController) {
         print("setting activity to \(activity)")
         GeanAppodeal.activity = activity
