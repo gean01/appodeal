@@ -18,14 +18,6 @@ import Foundation
     }
 
     @objc public func showInterstitial() -> String {
-        DispatchQueue.main.async {
-            if let delegate = UIApplication.shared.delegate as? ProtocoloAppodeal {
-                delegate.appodealShowInterstitial()
-            }
-        }
-        
-
-        print("invocado: GeanAppodeal showInterstitial")
         return "dummy response"
     }
     

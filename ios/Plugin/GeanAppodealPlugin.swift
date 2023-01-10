@@ -44,5 +44,26 @@ public class GeanAppodealPlugin: CAPPlugin {
             call.reject("Ad não pronto")
         }
     }
+
+    @objc func interstitialIsLoaded(_ call: CAPPluginCall) {
+        
+        if(GeanAppodealPlugin.mostradorDeAds != nil){
+            print("invocando GeanAppodealPlugin.mostradorDeAds.interstitialIsLoaded()")
+
+            DispatchQueue.main.async {
+                let isLoaded: Bool = GeanAppodealPlugin.mostradorDeAds!.interstitialIsLoaded()
+                if(isLoaded){
+                    call.resolve([
+                        "value": true
+                    ])
+                }else{
+                    call.reject("Ad não pronto")
+                }
+            }
+        }else{
+            print("GeanAppodealPlugin.mostradorDeAds é null")
+            call.reject("Ad não pronto")
+        }
+    }
     
 }
