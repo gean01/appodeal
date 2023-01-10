@@ -3,6 +3,7 @@ import Capacitor
 
 public protocol CapazDeMostrarAds{
     func mostrarInterstitial() -> Bool
+    func interstitialIsLoaded() -> Bool
 }
 
 /**

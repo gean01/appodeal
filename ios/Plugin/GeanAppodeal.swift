@@ -1,8 +1,5 @@
 import Foundation
 
-@objc public protocol ProtocoloAppodeal{
-    func appodealShowInterstitial()
-}
 
 
 
