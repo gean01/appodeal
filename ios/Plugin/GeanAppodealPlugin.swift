@@ -1,28 +1,21 @@
 import Foundation
 import Capacitor
 
+public protocol CapazDeMostrarAds{
+    func mostrarInterstitial() -> Bool
+}
+
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(GeanAppodealPlugin)
 public class GeanAppodealPlugin: CAPPlugin {
+    public static var mostradorDeAds: CapazDeMostrarAds? = nil
     private let implementation = GeanAppodeal()
-    public static var showInterstitial = false
     
-    public func shouldShowInterstitial() -> Bool{
-        //print("self.showInterstitial = ", self.showInterstitial)
-        return GeanAppodealPlugin.showInterstitial
-    }
-
-    public static func resetShouldShowInterstitial(){
-        print("Definindo self.showInterstitial como false")
-        GeanAppodealPlugin.showInterstitial = false
-    }
-
     @objc func initializeAppodeal(_ call: CAPPluginCall) {
         let key = call.getString("key") ?? ""
-//        let isdDev = call.getString("isDev") ?? false
         let useTestAds = call.getBool("useTestAds") ?? true
 
         call.resolve([
@@ -31,12 +24,24 @@ public class GeanAppodealPlugin: CAPPlugin {
     }
 
     @objc func showInterstitial(_ call: CAPPluginCall) {
-        print("setando self.showInterstitial para TRUE")
-        GeanAppodealPlugin.showInterstitial = true
-        // let value = call.getString("value") ?? ""
-        call.resolve([
-            "value": implementation.showInterstitial()
-        ])
+        
+        if(GeanAppodealPlugin.mostradorDeAds != nil){
+            print("invocando GeanAppodealPlugin.mostradorDeAds.mostrarInterstitial()")
+
+            DispatchQueue.main.async {
+                let mostrou: Bool = GeanAppodealPlugin.mostradorDeAds!.mostrarInterstitial()
+                if(mostrou){
+                    call.resolve([
+                        "value": true
+                    ])
+                }else{
+                    call.reject("Ad não pronto")
+                }
+            }
+        }else{
+            print("GeanAppodealPlugin.mostradorDeAds é null")
+            call.reject("Ad não pronto")
+        }
     }
     
 }
