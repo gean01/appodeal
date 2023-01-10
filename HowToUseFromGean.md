@@ -1,6 +1,10 @@
 # Create sub-project "gean-appodeal"
 
+# install
 npm install /Users/geansantos/git/00_Angular/gean-appodeal
+
+# update
+npm update gean-appodeal
 
 File Created by Gean. Read carefully
 
