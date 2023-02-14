@@ -38,9 +38,9 @@ public class GeanAppodealPlugin extends Plugin {
     private static String appodealKey = "";
     private static boolean useTestAds = true;
     private static boolean isDev = false;
-    private static boolean mustShowBanner = false;
+    private static final boolean mustShowBanner = false;
     // private static boolean consent = false;
-    private GeanAppodeal implementation = new GeanAppodeal();
+    private final GeanAppodeal implementation = new GeanAppodeal();
 
     @PluginMethod
     public void initializeAppodeal(PluginCall call) {
@@ -55,11 +55,11 @@ public class GeanAppodealPlugin extends Plugin {
 
         boolean consent = call.getBoolean("consent");
         // GeanAppodealPlugin.consent = consent;
-        
+
         String key = call.getString("key");
         GeanAppodealPlugin.appodealKey = key;
 
-        String msg = "initializeAppodeal, isDev = " + String.valueOf(isDev) + " useTestAds = " + String.valueOf(useTestAds) + " key = " + key + " consent = " + String.valueOf(consent);
+        String msg = "initializeAppodeal, isDev = " + isDev + " useTestAds = " + useTestAds + " key = " + key + " consent = " + consent;
         GeanAppodealPlugin.debugMessage(msg);
 
         if(GeanAppodealPlugin.activity != null){
@@ -104,10 +104,10 @@ public class GeanAppodealPlugin extends Plugin {
           @Override
           public void onInterstitialExpired()  {
             GeanAppodealPlugin.debugMessage("onInterstitialExpired");
-          }     
+          }
         });
 
-        
+
 
         JSObject ret = new JSObject();
         ret.put("result", result);
@@ -119,7 +119,7 @@ public class GeanAppodealPlugin extends Plugin {
     //     @Override
     //     public void onBannerLoaded(int height, boolean isPrecache) {
     //       GeanAppodealPlugin.debugMessage("onBannerLoaded");
-          
+
     //       if(GeanAppodealPlugin.mustShowBanner){
     //         Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
     //       }
@@ -159,7 +159,7 @@ public class GeanAppodealPlugin extends Plugin {
       if(GeanAppodealPlugin.activity != null){
         if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
           Appodeal.show(GeanAppodealPlugin.activity, Appodeal.INTERSTITIAL);
-          result = true;  
+          result = true;
         }else{
           String msg = "interstitial is not loaded";
           GeanAppodealPlugin.debugMessage(msg);
@@ -173,7 +173,7 @@ public class GeanAppodealPlugin extends Plugin {
     @PluginMethod
     public void showBannerBottom(PluginCall call) {
       boolean result = false;
-      GeanAppodealPlugin.debugMessage("showBannerBottom"); 
+      GeanAppodealPlugin.debugMessage("showBannerBottom");
 
       String value = call.getString("value");
       JSObject ret = new JSObject();
@@ -200,7 +200,7 @@ public class GeanAppodealPlugin extends Plugin {
     @PluginMethod
     public void showBannerTop(PluginCall call) {
       boolean result = false;
-      GeanAppodealPlugin.debugMessage("showBanner on top"); 
+      GeanAppodealPlugin.debugMessage("showBanner on top");
 
       String value = call.getString("value");
       JSObject ret = new JSObject();
@@ -218,6 +218,8 @@ public class GeanAppodealPlugin extends Plugin {
           */
           // GeanAppodealPlugin.mustShowBanner = true;
         }
+      }else{
+        GeanAppodealPlugin.debugMessage("Activity is null");
       }
 
       ret.put("result", result);

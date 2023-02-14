@@ -6,5 +6,7 @@
 CAP_PLUGIN(GeanAppodealPlugin, "GeanAppodeal",
     CAP_PLUGIN_METHOD(initializeAppodeal, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(showInterstitial, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(showBannerTop, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(showBannerBottom, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(interstitialIsLoaded, CAPPluginReturnPromise);
 )

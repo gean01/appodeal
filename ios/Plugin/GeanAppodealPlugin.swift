@@ -2,8 +2,13 @@ import Foundation
 import Capacitor
 
 public protocol CapazDeMostrarAds{
+    func initializeAppodeal(key: String, useTestAds: Bool)
     func mostrarInterstitial() -> Bool
+    func mostrarBannerTop() -> Bool
+    func mostrarBannerBottom() -> Bool
     func interstitialIsLoaded() -> Bool
+    func bannerIsLoadedTop() -> Bool
+    func bannerIsLoadedBottom() -> Bool
 }
 
 /**
@@ -18,9 +23,11 @@ public class GeanAppodealPlugin: CAPPlugin {
     @objc func initializeAppodeal(_ call: CAPPluginCall) {
         let key = call.getString("key") ?? ""
         let useTestAds = call.getBool("useTestAds") ?? true
+        
+        GeanAppodealPlugin.mostradorDeAds!.initializeAppodeal(key: key, useTestAds: useTestAds)
 
         call.resolve([
-            "value": implementation.initializeAppodeal(key: key, useTestAds: useTestAds)
+            "value": true
         ])
     }
 
@@ -37,6 +44,49 @@ public class GeanAppodealPlugin: CAPPlugin {
                     ])
                 }else{
                     call.reject("Ad não pronto")
+                }
+            }
+        }else{
+            print("GeanAppodealPlugin.mostradorDeAds é null")
+            call.reject("Ad não pronto")
+        }
+    }
+
+    @objc func showBannerTop(_ call: CAPPluginCall) {
+        print("Executando showBannerTop")
+        
+        if(GeanAppodealPlugin.mostradorDeAds != nil){
+            print("invocando GeanAppodealPlugin.mostradorDeAds.showBannerTop()")
+
+            DispatchQueue.main.async {
+                let mostrou: Bool = GeanAppodealPlugin.mostradorDeAds!.mostrarBannerTop()
+                if(mostrou){
+                    call.resolve([
+                        "value": true
+                    ])
+                }else{
+                    call.reject("Ad não pronto")
+                }
+            }
+        }else{
+            print("GeanAppodealPlugin.mostradorDeAds é null")
+            call.reject("Ad não pronto")
+        }
+    }
+    
+    @objc func showBannerBottom(_ call: CAPPluginCall) {
+        
+        if(GeanAppodealPlugin.mostradorDeAds != nil){
+            print("invocando GeanAppodealPlugin.mostradorDeAds.mostrarBannerBottom()")
+
+            DispatchQueue.main.async {
+                let mostrou: Bool = GeanAppodealPlugin.mostradorDeAds!.mostrarBannerBottom()
+                if(mostrou){
+                    call.resolve([
+                        "value": true
+                    ])
+                }else{
+                    call.reject("banner bottom não pronto")
                 }
             }
         }else{
