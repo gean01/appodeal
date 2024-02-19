@@ -23,12 +23,19 @@ public class GeanAppodealPlugin: CAPPlugin {
     @objc func initializeAppodeal(_ call: CAPPluginCall) {
         let key = call.getString("key") ?? ""
         let useTestAds = call.getBool("useTestAds") ?? true
+            
+        if(GeanAppodealPlugin.mostradorDeAds != nil){
+            GeanAppodealPlugin.mostradorDeAds!.initializeAppodeal(key: key, useTestAds: useTestAds)
+            call.resolve([
+                "value": true
+            ])
+        }else{
+            call.reject("Not ready")
+        }
         
-        GeanAppodealPlugin.mostradorDeAds!.initializeAppodeal(key: key, useTestAds: useTestAds)
+        
 
-        call.resolve([
-            "value": true
-        ])
+        
     }
 
     @objc func showInterstitial(_ call: CAPPluginCall) {

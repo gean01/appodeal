@@ -15,26 +15,15 @@ import android.content.Context;
 import android.app.Activity;
 import android.widget.Toast;
 
+
 @CapacitorPlugin(name = "GeanAppodeal")
 
 
 
 
-
 public class GeanAppodealPlugin extends Plugin {
-    /* GeanAppodealPlugin does not have an activity to show ads.
-    App's MainActivity.java, at onCreate, should save it's activity here.
-    Sth like:
-
-    public class MainActivity extends BridgeActivity {
-      @Override
-      protected void onCreate(Bundle savedInstanceState) {
-          GeanAppodealPlugin.activity = this;
-          super.onCreate(savedInstanceState);
-      }
-    }
-     */
-    private static Activity activity = null;
+    public static Activity activity = null;
+    private static GeanProtocol mainactivity;
     private static String appodealKey = "";
     private static boolean useTestAds = true;
     private static boolean isDev = false;
@@ -44,7 +33,7 @@ public class GeanAppodealPlugin extends Plugin {
 
     @PluginMethod
     public void initializeAppodeal(PluginCall call) {
-        GeanAppodealPlugin.debugMessage("initializeAppodeal");
+        // this.debugMessage("initializeAppodeal");
         boolean result =  false;
 
         boolean useTestAds = call.getBoolean("useTestAds");
@@ -60,50 +49,56 @@ public class GeanAppodealPlugin extends Plugin {
         GeanAppodealPlugin.appodealKey = key;
 
         String msg = "initializeAppodeal, isDev = " + isDev + " useTestAds = " + useTestAds + " key = " + key + " consent = " + consent;
-        GeanAppodealPlugin.debugMessage(msg);
+        // this.debugMessage(msg);
 
-        if(GeanAppodealPlugin.activity != null){
+        if(this.activity != null){
           result = true;
-          Appodeal.setTesting(useTestAds);
-          Appodeal.disableNetwork(GeanAppodealPlugin.activity, "adcolony");
-          Appodeal.disableNetwork(GeanAppodealPlugin.activity, "mobvista");
-          Appodeal.disableNetwork(GeanAppodealPlugin.activity, "admob");
-          Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL, consent);
-          Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.BANNER, consent);
+          
+          // Appodeal.setTesting(useTestAds);
+
+
+          // this.mainactivity.disableNetwork(this.activity, "adcolony");
+          // GeanAppodealPlugin.mainactivity.disableNetwork();
+          GeanAppodealPlugin.mainactivity.initialize(key, consent, useTestAds);
+
+          // Appodeal.disableNetwork(GeanAppodealPlugin.activity, "mobvista");
+          // Appodeal.disableNetwork(GeanAppodealPlugin.activity, "admob");
+          // Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.INTERSTITIAL, consent);
+          // Appodeal.initialize(GeanAppodealPlugin.activity, GeanAppodealPlugin.appodealKey, Appodeal.BANNER, consent);
         }else{
-          GeanAppodealPlugin.debugMessage("activity is null");
+          // this.debugMessage("activity is null");
         }
 
         Appodeal.setInterstitialCallbacks(new InterstitialCallbacks() {
           @Override
           public void onInterstitialLoaded(boolean isPrecache) {
-            GeanAppodealPlugin.debugMessage("Interstitial loaded");
+            // this.debugMessage("Interstitial loaded");
           }
 
           @Override
           public void onInterstitialFailedToLoad() {
-            GeanAppodealPlugin.debugMessage("InterstitialFailedToLoad");
+            // this.debugMessage("InterstitialFailedToLoad");
           }
 
           @Override
           public void onInterstitialShown() {
-            GeanAppodealPlugin.debugMessage("onInterstitialShown");
+            // this.debugMessage("onInterstitialShown");
           }
           @Override
           public void onInterstitialShowFailed() {
-            GeanAppodealPlugin.debugMessage("onInterstitialShowFailed");
+            // this.debugMessage("onInterstitialShowFailed");
           }
           @Override
           public void onInterstitialClicked() {
-            GeanAppodealPlugin.debugMessage("onInterstitialClicked");
+            // this.debugMessage("onInterstitialClicked");
           }
           @Override
           public void onInterstitialClosed() {
-            GeanAppodealPlugin.debugMessage("onInterstitialClosed");
+            // this.debugMessage("onInterstitialClosed");
           }
           @Override
           public void onInterstitialExpired()  {
-            GeanAppodealPlugin.debugMessage("onInterstitialExpired");
+            // this.debugMessage("onInterstitialExpired");
           }
         });
 
@@ -114,162 +109,97 @@ public class GeanAppodealPlugin extends Plugin {
         call.resolve(ret);
     }
 
-    // private void setBannerCallbacks(){
-    //   Appodeal.setBannerCallbacks(new BannerCallbacks() {
-    //     @Override
-    //     public void onBannerLoaded(int height, boolean isPrecache) {
-    //       GeanAppodealPlugin.debugMessage("onBannerLoaded");
-
-    //       if(GeanAppodealPlugin.mustShowBanner){
-    //         Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
-    //       }
-    //     }
-
-    //     @Override
-    //     public void onBannerFailedToLoad() {
-    //       // Called when banner failed to load
-    //     }
-    //     @Override
-    //     public void onBannerShown() {
-    //       // Called when banner is shown
-    //     }
-    //     @Override
-    //     public void onBannerShowFailed() {
-    //       // Called when banner show failed
-    //     }
-    //     @Override
-    //     public void onBannerClicked() {
-    //       // Called when banner is clicked
-    //     }
-    //     @Override
-    //     public void onBannerExpired() {
-    //       // Called when banner is expired
-    //     }
-    //   });
-    // }
-
     @PluginMethod
     public void showInterstitial(PluginCall call) {
-      boolean result = false;
-      GeanAppodealPlugin.debugMessage("showInterstitial");
-
       String value = call.getString("value");
       JSObject ret = new JSObject();
+      boolean didShow = GeanAppodealPlugin.mainactivity.showInterstitial(GeanAppodealPlugin.isDev);
 
-      if(GeanAppodealPlugin.activity != null){
-        if(Appodeal.isLoaded(Appodeal.INTERSTITIAL)){
-          Appodeal.show(GeanAppodealPlugin.activity, Appodeal.INTERSTITIAL);
-          result = true;
-        }else{
-          String msg = "interstitial is not loaded";
-          GeanAppodealPlugin.debugMessage(msg);
-        }
+      if(didShow){
+        call.resolve(ret);
+        return;
       }
 
-      ret.put("result", result);
+      ret.put("result", ret);
       call.resolve(ret);
     }
 
     @PluginMethod
     public void showBannerBottom(PluginCall call) {
-      boolean result = false;
-      GeanAppodealPlugin.debugMessage("showBannerBottom");
 
       String value = call.getString("value");
       JSObject ret = new JSObject();
 
-      if(GeanAppodealPlugin.activity != null){
-        if(Appodeal.isLoaded(Appodeal.BANNER)){
-          // GeanAppodealPlugin.mustShowBanner = false;
-          Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_BOTTOM);
-          call.resolve(ret);
-        }else{
-          String msg = "banner is not loaded";
-          GeanAppodealPlugin.debugMessage(msg);
-          /* Set flg so that when banner loads, it is shown
-            Check method onBannerLoaded in this file
-          */
-          // GeanAppodealPlugin.mustShowBanner = true;
-        }
+      boolean didShow = GeanAppodealPlugin.mainactivity.showBannerBottom(GeanAppodealPlugin.isDev);
+
+      if(didShow){
+        call.resolve(ret);
+        return;
       }
 
-      ret.put("result", result);
+      ret.put("result", ret);
       call.reject("banner not loaded");
     }
 
     @PluginMethod
     public void showBannerTop(PluginCall call) {
-      boolean result = false;
-      GeanAppodealPlugin.debugMessage("showBanner on top");
-
       String value = call.getString("value");
       JSObject ret = new JSObject();
 
-      if(GeanAppodealPlugin.activity != null){
-        if(Appodeal.isLoaded(Appodeal.BANNER)){
-          // GeanAppodealPlugin.mustShowBanner = false;
-          Appodeal.show(GeanAppodealPlugin.activity, Appodeal.BANNER_TOP);
-          call.resolve(ret);
-        }else{
-          String msg = "banner is not loaded";
-          GeanAppodealPlugin.debugMessage(msg);
-          /* Set flg so that when banner loads, it is shown
-            Check method onBannerLoaded in this file
-          */
-          // GeanAppodealPlugin.mustShowBanner = true;
-        }
-      }else{
-        GeanAppodealPlugin.debugMessage("Activity is null");
-      }
+      boolean didShow = GeanAppodealPlugin.mainactivity.showBannerTop(GeanAppodealPlugin.isDev);
 
-      ret.put("result", result);
+      if(didShow){
+        call.resolve(ret);
+        return;
+      }
+   
+      ret.put("result", false);
       call.reject("banner not loaded");
     }
 
     @PluginMethod
     public void interstitialIsLoaded(PluginCall call) {
-        boolean isLoaded = Appodeal.isLoaded(Appodeal.INTERSTITIAL);
-        GeanAppodealPlugin.debugMessage("interstitialIsLoaded = " + isLoaded);
+        boolean isLoaded = GeanAppodealPlugin.mainactivity.interstitialIsLoaded();
 
         if(isLoaded){
-            JSObject ret = new JSObject();
-            ret.put("value", isLoaded);
-            call.resolve(ret);
+          JSObject ret = new JSObject();
+          ret.put("value", isLoaded);
+          call.resolve(ret);
         }else{
-            call.reject("Interstitial is not loaded");
+          call.reject("Interstitial is not loaded");
         }
     }
 
     @PluginMethod
     public void bannerIsLoaded(PluginCall call) {
-        boolean isLoaded = Appodeal.isLoaded(Appodeal.BANNER);
-        GeanAppodealPlugin.debugMessage("bannerIsLoaded = " + isLoaded);
+        boolean isLoaded = GeanAppodealPlugin.mainactivity.bannerIsLoaded();;
 
         if(isLoaded){
-            JSObject ret = new JSObject();
-            ret.put("value", isLoaded);
-            call.resolve(ret);
+          JSObject ret = new JSObject();
+          ret.put("value", isLoaded);
+          call.resolve(ret);
         }else{
-            call.reject("Banner is not loaded");
+          call.reject("Banner is not loaded");
         }
     }
 
-    private static void debugMessage(String message){
+    private void debugMessage(String message){
       // Toast messages are only in dev mode (for debugging)
-      if(!GeanAppodealPlugin.isDev){
+      if(!this.isDev){
         return;
       }
 
       // If activity is null, there's no where to show toast
-      if(GeanAppodealPlugin.activity == null){
+      if(this.activity == null){
         return;
       }
 
-      Toast toast = Toast.makeText(GeanAppodealPlugin.activity, message, Toast.LENGTH_LONG);
+      Toast toast = Toast.makeText(this.activity, message, Toast.LENGTH_LONG);
       toast.show();
     }
 
     public static void setActivity(Activity activity){
       GeanAppodealPlugin.activity = activity;
+      GeanAppodealPlugin.mainactivity = (GeanProtocol)activity;
     }
 }
