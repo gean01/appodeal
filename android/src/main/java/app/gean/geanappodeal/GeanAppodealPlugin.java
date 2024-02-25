@@ -202,4 +202,32 @@ public class GeanAppodealPlugin extends Plugin {
       GeanAppodealPlugin.activity = activity;
       GeanAppodealPlugin.mainactivity = (GeanProtocol)activity;
     }
+
+    @PluginMethod
+    public void startActivity(PluginCall call) {
+        JSObject data = call.getData();
+        final String action = data.has("action") ? data.getString("action") : null;
+        Log.d(LOG_TAG, "Action: " + action);
+
+        if (action != null) {
+            final String url = data.has("url") ? data.getString("url") : "";
+            final Intent intent = new Intent(action, Uri.parse(url));
+
+            if(url.contains("app=business")){
+              intent.setPackage("com.whatsapp.w4b");
+            }else{
+              intent.setPackage("com.whatsapp");
+            }
+
+
+            try {
+                this.startActivityForResult(call, intent, 1);
+                call.success();
+            } catch (ActivityNotFoundException activityError) {
+                call.error(activityError.getMessage());
+            }
+        } else {
+            call.error("No action provided");
+        }
+    }
 }

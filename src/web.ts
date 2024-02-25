@@ -33,6 +33,11 @@ export class GeanAppodealWeb extends WebPlugin implements GeanAppodealPlugin {
     return true;
   }
 
+  async startActivity(): Promise<boolean> {
+    console.log('startActivity');
+    return true;
+  }
+
   // async setTesting(options: { value: boolean }): Promise<{ value: boolean }> {
   //   console.log('setTesting', options);
   //   return options;

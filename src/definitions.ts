@@ -5,4 +5,5 @@ export interface GeanAppodealPlugin {
   showBannerTop(): Promise<boolean>;
   interstitialIsLoaded(): Promise<boolean>;
   bannerIsLoaded(): Promise<boolean>;
+  startActivity(options: { action: string, url: string }): Promise<boolean>;
 }
